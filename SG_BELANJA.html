@@ -3,89 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SukaGalon Belanja</title>
-    <!-- Add Google Fonts - Nunito -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Add Font Awesome for cart icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Toko Air Mineral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="SG_BELANJA.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-links">
-            <a href="#" class="active">Home</a>
-            <a href="#">Belanja</a>
-            <div class="cart-container">
-                <a href="#" class="cart-icon" onclick="toggleCartPopup()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge">0</span>
-                </a>
-                <div class="cart-popup" id="cartPopup">
-                    <h3>Keranjang Anda</h3>
-                    <div class="cart-items"></div>
-                    <div class="cart-total">
-                        Total: Rp<span id="cartTotal">0</span>
-                    </div>
-                    <button class="checkout-button">Checkout</button>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="SG_BELANJA.html" class="nav-link active">Belanja</a>
+        </div>
+        <div class="nav-right">
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span class="cart-count">0</span>
+            </div>
+            <div class="profile-dropdown">
+                <button onclick="toggleProfileMenu()" class="profile-btn">👤 Profile</button>
+                <div id="profileDropdown" class="dropdown-content">
+                    <a href="/profilE">Edit Profile</a>
+                    <a href="/logout">Keluar</a>
                 </div>
             </div>
-            <a href="#">Keluar</a>
         </div>
     </nav>
 
-    <div class="container">
-        <h1>Produk Kami</h1>
-        
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="le minerale.jpeg" alt="Le Minerale 15L">
-                <h3>Le Minerale - 15L</h3>
-                <p class="price">Rp22.000</p>
-                <button class="buy-button" onclick="addToCart('Le Minerale 15L', 22000)">Beli Sekarang</button>
-            </div>
+    <div class="overlay" onclick="toggleCart()"></div>
+    
+    <div class="cart-popup">
+        <h2>Keranjang Anda</h2>
+        <div class="cart-items"></div>
+        <div class="cart-total">Total: Rp0</div>
+        <button class="btn btn-primary" onclick="checkout()" style="width: 100%; margin-top: 1rem;">Checkout</button>
+    </div>
 
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="le minerale 5l.jpg" alt="Le Minerale 5L">
-                <h3>Le Minerale - 5L</h3>
-                <p class="price">Rp15.000</p>
-                <button class="buy-button" onclick="addToCart('Le Minerale 5L', 15000)">Beli Sekarang</button>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="CLEO.jpeg" alt="Cleo 19L">
-                <h3>Cleo - 19L</h3>
-                <p class="price">Rp24.000</p>
-                <button class="buy-button" onclick="addToCart('Cleo 19L', 24000)">Beli Sekarang</button>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="cleo MINI.png" alt="Cleo 5L">
-                <h3>Cleo - 5L</h3>
-                <p class="price">Rp13.000</p>
-                <button class="buy-button" onclick="addToCart('Cleo 5L', 13000)">Beli Sekarang</button>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <img src="cryst 19l.jpg" alt="Crystalline 19L">
-                <h3>Crystalline - 19L</h3>
-                <p class="price">Rp25.000</p>
-                <button class="buy-button" onclick="addToCart('Crystalline 19L', 25000)">Beli Sekarang</button>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <img src="Cryst.jpg" alt="Crystalline 6L">
-                <h3>Crystalline - 6L</h3>
-                <p class="price">Rp14.000</p>
-                <button class="buy-button" onclick="addToCart('Crystalline 6L', 14000)">Beli Sekarang</button>
-            </div>
+    <div class="products">
+        <div class="product-card">
+            <img src="le minerale.jpeg" alt="Le Minerale 15L" class="product-image">
+            <h3>Le Minerale 15L</h3>
+            <p>Rp 22.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Le Minerale 15L', 22000, 'le minerale.jpeg')">
+                Beli Sekarang
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="le minerale 5l.jpg" alt="Le Minerale 5L" class="product-image">
+            <h3>Le Minerale 5L</h3>
+            <p>Rp 15.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Le Minerale 5L', 15000, 'le minerale 5l.jpg')">
+                Beli Sekarang
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="CLEO.jpeg" alt="Cleo 19L" class="product-image">
+            <h3>Cleo - 19L</h3>
+            <p>Rp 34.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Cleo 19L', 34000, 'CLEO.jpeg')">
+                Beli Sekarang
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="cleo MINI.png" alt="Cleo 6L" class="product-image">
+            <h3>Cleo 6L</h3>
+            <p>Rp 19.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Cleo 6L', 19000, 'cleo MINI.png')">
+                Beli Sekarang
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="Cryst.jpg" alt="Csytalline 6L" class="product-image">
+            <h3>Crystalline 6L</h3>
+            <p>Rp 14.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Crystalline 6L', 14000, 'Cryst.jpg')">
+                Beli Sekarang
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="cryst 19l.jpg" alt="Vit 19L" class="product-image">
+            <h3>Crystalline 19L</h3>
+            <p>Rp 58.000</p>
+            <button class="btn btn-primary" onclick="addToCart('Crystalline 19L', 58000, 'cryst 19l.jpg')">
+                Beli Sekarang
+            </button>
         </div>
     </div>
+
     <script src="SG_BELANJA.js"></script>
 </body>
 </html>

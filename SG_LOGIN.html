@@ -1,44 +1,72 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login - SukaGalon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="SG_LOGIN.css">
 </head>
 <body>
     <div class="container">
         <div class="login-card">
-            <div class="login-header">
-                <img src="koko.png" alt="Robot Icon" class="robot-icon">
-                <h1>Login</h1>
+            <div class="mascot">
+                <img src="koko.png" alt="Mascot" class="mascot-image">
             </div>
-            <div class="register-text">
-                Belum punya akun SukaGalon? <a href="#" class="register-link">Daftar</a>
-            </div>
-            <form id="loginForm">
+            <h1>Login</h1>
+            <p class="register-text">
+                Belum punya akun SukaGalon? 
+                <a href="/daftar" class="register-link">Daftar</a>
+            </p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" required>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        placeholder="Email"
+                        class="form-input"
+                    >
                 </div>
+                
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="password-input">
-                        <input type="password" id="password" name="password" required>
-                        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required
+                            placeholder="Password"
+                            class="form-input"
+                        >
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                            👁️
+                        </button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="ingatsaya">
-                        <input type="checkbox" id="ingatsaya" name="ingatsaya">
-                        Ingat Saya
-                    </label>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Ingat Saya</label>
                 </div>
-                <button type="submit" class="login-button">Login</button>
+
+                <button type="submit" class="login-btn">Login</button>
             </form>
         </div>
     </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <h2>This page says</h2>
+            <p id="modalMessage">Login berhasil!</p>
+            <button onclick="closeModal()" class="modal-btn">OK</button>
+        </div>
+    </div>
+
     <script src="SG_LOGIN.js"></script>
 </body>
 </html>

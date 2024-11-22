@@ -1,9 +1,13 @@
 /* styles.css */
-body {
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #00235B 0%, #001845 100%);
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background: #00205B;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -18,58 +22,66 @@ body {
 
 .login-card {
     background: white;
+    padding: 2rem;
     border-radius: 10px;
-    padding: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.login-header {
+.mascot {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
-.robot-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
+.mascot-image {
+    width: 80px;
+    height: 80px;
 }
 
-.login-header h1 {
-    margin: 0;
+h1 {
     color: #333;
-    font-size: 24px;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .register-text {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 14px;
+    margin-bottom: 2rem;
     color: #666;
 }
 
 .register-link {
-    color: blue;
+    color: #0066CC;
     text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link:hover {
+    text-decoration: underline;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
     color: #333;
+    font-weight: 600;
 }
 
-input[type="text"],
-input[type="password"] {
+.form-input {
     width: 100%;
-    padding: 10px;
+    padding: 0.75rem;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0066CC;
 }
 
 .password-input {
@@ -81,33 +93,84 @@ input[type="password"] {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+    background: none;
+    border: none;
     cursor: pointer;
-    user-select: none;
+    padding: 5px;
 }
 
-.login-button {
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.login-btn {
     width: 100%;
-    padding: 12px;
-    background-color: #0040FF;
+    padding: 0.75rem;
+    background: #0066CC;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.login-button:hover {
-    background-color: #0033CC;
+.login-btn:hover {
+    background: #0052a3;
 }
 
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-label[for="ingatsaya"] {
-    display: flex;
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     align-items: center;
-    font-size: 14px;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
     color: #666;
+}
+
+.modal-btn {
+    float: right;
+    padding: 0.5rem 2rem;
+    background: #0066CC;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal-btn:hover {
+    background: #0052a3;
 }

@@ -1,115 +1,193 @@
 // script.js
 let cart = [];
-let cartBadge = document.querySelector('.cart-badge');
-let cartTotal = document.getElementById('cartTotal');
-let cartPopup = document.getElementById('cartPopup');
 
-function addToCart(productName, price) {
-    cart.push({
-        name: productName,
-        price: price
-    });
+// Cart Functions
+function toggleCart() {
+    const cartPopup = document.querySelector('.cart-popup');
+    const overlay = document.querySelector('.overlay');
+    const isVisible = cartPopup.style.display === 'block';
     
-    // Update cart badge and popup
-    updateCartBadge();
-    updateCartPopup();
+    cartPopup.style.display = isVisible ? 'none' : 'block';
+    overlay.style.display = isVisible ? 'none' : 'block';
+    
+    if (isVisible) {
+        document.body.style.overflow = 'auto';
+    } else {
+        document.body.style.overflow = 'hidden';
+        updateCartDisplay();
+    }
+}
+
+function addToCart(name, price, image) {
+    const existingItem = cart.find(item => item.name === name);
+    
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ name, price, image, quantity: 1 });
+    }
+    
+    updateCartCount();
+    updateCartDisplay();
     
     // Show notification
-    showNotification(productName);
+    showNotification(`${name} ditambahkan ke keranjang`);
+}
+
+function removeFromCart(index) {
+    const item = cart[index];
+    cart.splice(index, 1);
+    updateCartCount();
+    updateCartDisplay();
     
-    // Log cart status
-    console.log('Cart updated:', cart);
-    console.log('Total: Rp' + calculateCartTotal().toLocaleString());
+    // Show notification
+    showNotification(`${item.name} dihapus dari keranjang`);
 }
 
-function updateCartBadge() {
-    cartBadge.textContent = cart.length;
+function updateQuantity(index, change) {
+    const item = cart[index];
+    const newQuantity = item.quantity + change;
     
-    // Reset animation
-    cartBadge.style.animation = 'none';
-    cartBadge.offsetHeight; // Trigger reflow
-    cartBadge.style.animation = 'popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-}
-
-function updateCartPopup() {
-    const cartItemsContainer = document.querySelector('.cart-items');
-    cartItemsContainer.innerHTML = '';
+    if (newQuantity > 0) {
+        item.quantity = newQuantity;
+    } else {
+        removeFromCart(index);
+    }
     
-    cart.forEach((item) => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <span>${item.name}</span>
-            <span>Rp${item.price.toLocaleString()}</span>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-    });
+    updateCartCount();
+    updateCartDisplay();
+}
+
+function updateCartCount() {
+    const cartCount = document.querySelector('.cart-count');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+
+function updateCartDisplay() {
+    const cartItems = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total');
     
-    const total = calculateCartTotal();
-    cartTotal.textContent = total.toLocaleString();
+    cartItems.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="item-details">
+                <h4>${item.name}</h4>
+                <p>Rp${item.price.toLocaleString()}</p>
+                <div class="quantity-controls">
+                    <button class="btn" onclick="updateQuantity(${index}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    <button class="btn btn-danger" onclick="removeFromCart(${index})">Hapus</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cartTotal.textContent = `Total: Rp${total.toLocaleString()}`;
 }
 
-function calculateCartTotal() {
-    return cart.reduce((sum, item) => sum + item.price, 0);
+function checkout() {
+    if (cart.length === 0) {
+        showNotification('Keranjang belanja Anda kosong!', 'error');
+        return;
+    }
+    
+    // Save cart to localStorage before redirecting
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Redirect to payment page
+    window.location.href = '/pembayaran';
 }
 
-function toggleCartPopup() {
-    cartPopup.classList.toggle('show');
+// Profile Dropdown Functions
+function toggleProfileMenu() {
+    document.getElementById("profileDropdown").classList.toggle("show");
 }
 
-function showNotification(productName) {
+// Close dropdown when clicking outside
+window.onclick = function(event) {
+    if (!event.target.matches('.profile-btn')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+// Notification System
+// script.js
+function showNotification(message, type = 'success') {
     // Create notification element
     const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #4CAF50;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        z-index: 1000;
-        animation: slideIn 0.5s ease-out;
-        font-family: 'Nunito', sans-serif;
-    `;
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
     
-    notification.innerHTML = `✅ ${productName} telah ditambahkan ke keranjang`;
-    
+    // Add notification to document
     document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
     
     // Remove notification after 3 seconds
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.5s ease-out';
+        notification.classList.remove('show');
         setTimeout(() => {
             document.body.removeChild(notification);
-        }, 500);
+        }, 300);
     }, 3000);
 }
 
-// Add CSS for animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+// Initialize cart from localStorage if available
+document.addEventListener('DOMContentLoaded', () => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCartCount();
+    }
+});
+
+// Save cart to localStorage when modified
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Update cart functions to include saving
+const originalAddToCart = addToCart;
+addToCart = (...args) => {
+    originalAddToCart(...args);
+    saveCart();
+};
+
+const originalRemoveFromCart = removeFromCart;
+removeFromCart = (...args) => {
+    originalRemoveFromCart(...args);
+    saveCart();
+};
+
+const originalUpdateQuantity = updateQuantity;
+updateQuantity = (...args) => {
+    originalUpdateQuantity(...args);
+    saveCart();
+};
+
+// Close cart when pressing Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const cartPopup = document.querySelector('.cart-popup');
+        if (cartPopup.style.display === 'block') {
+            toggleCart();
         }
     }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+});
+
+// Prevent closing cart when clicking inside it
+document.querySelector('.cart-popup').addEventListener('click', (e) => {
+    e.stopPropagation();
+});
