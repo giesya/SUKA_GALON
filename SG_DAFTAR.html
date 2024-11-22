@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="SG_DAFTAR.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="koko.png" alt="Logo">
+            <h1>Daftar</h1>
+        </div>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Konfirmasi Password</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit">Daftar</button>
+            <div class="login-link">
+                Sudah punya akun? <a href="SG_LOGIN.html">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Success -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h2>Pendaftaran Berhasil!</h2>
+            <p>Akun Anda telah berhasil dibuat.</p>
+            <p>Anda akan dialihkan ke halaman login...</p>
+        </div>
+    </div>
+
+    <script src="SG_DAFTAR.js"></script>
+</body>
+</html>
