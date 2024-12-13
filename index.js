@@ -1,13 +1,21 @@
-// DOM Elements
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const exploreBtn = document.querySelector('.explore-btn');
 const mascot = document.querySelector('.mascot');
+const clouds = document.querySelectorAll('.cloud');
 
-// Initialize AOS
+// Helper function to debounce events
+const debounce = (func, wait = 20) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+};
+
+// Fade-in effect on load
 document.addEventListener('DOMContentLoaded', () => {
-    // Add loading animation
     document.body.style.opacity = '0';
     setTimeout(() => {
         document.body.style.transition = 'opacity 0.5s ease';
@@ -15,56 +23,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 });
 
-// Mobile Menu Toggle
-hamburger.addEventListener('click', () => {
+// Hamburger menu toggle
+hamburger?.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
+    navMenu?.classList.toggle('active');
 });
 
-// Close mobile menu when clicking links
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
-// Smooth scroll for navigation links
+// Close menu on nav link click
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+
+        // Smooth scroll
         e.preventDefault();
         const targetId = link.getAttribute('href');
-        if (targetId !== '#') {
+        if (targetId && targetId !== '#') {
             const targetSection = document.querySelector(targetId);
-            targetSection.scrollIntoView({ behavior: 'smooth' });
+            targetSection?.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
 
-// Button animation
-exploreBtn.addEventListener('click', () => {
+// Button click effect
+exploreBtn?.addEventListener('click', () => {
     exploreBtn.style.transform = 'scale(0.95)';
     setTimeout(() => {
         exploreBtn.style.transform = 'scale(1)';
     }, 200);
 });
 
-// Mascot hover animation with parallax effect
+// Mascot parallax effect
 if (mascot) {
-    document.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
         const xPos = (window.innerWidth / 2 - clientX) / 30;
         const yPos = (window.innerHeight / 2 - clientY) / 30;
-        
         mascot.style.transform = `translate(${xPos}px, ${yPos}px)`;
-    });
+    };
+
+    document.addEventListener('mousemove', debounce(handleMouseMove));
 }
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1
-};
-
+// Lazy load sections with IntersectionObserver
+const observerOptions = { threshold: 0.1 };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -73,23 +75,24 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements
 document.querySelectorAll('.hero-content, .mascot-container').forEach(el => {
     observer.observe(el);
 });
 
-// Add scroll parallax effect to clouds
-window.addEventListener('scroll', () => {
-    const clouds = document.querySelectorAll('.cloud');
+// Parallax clouds effect
+const handleScroll = () => {
     const scrolled = window.pageYOffset;
-    
     clouds.forEach((cloud, index) => {
         const speed = (index + 1) * 0.2;
         cloud.style.transform = `translateY(${scrolled * speed}px)`;
     });
-});
+};
 
-// Add preloader
+if (clouds.length) {
+    window.addEventListener('scroll', debounce(handleScroll));
+}
+
+// Preloader effect
 window.addEventListener('load', () => {
     const loader = document.createElement('div');
     loader.className = 'preloader';
@@ -103,19 +106,18 @@ window.addEventListener('load', () => {
     }, 1000);
 });
 
-// Handle window resize
-window.addEventListener('resize', () => {
+// Reset menu on resize
+window.addEventListener('resize', debounce(() => {
     if (window.innerWidth > 768) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+        hamburger?.classList.remove('active');
+        navMenu?.classList.remove('active');
     }
-});
+}, 100));
 
-// Add smooth hover effect for buttons
+// Button hover transition
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseover', () => {
         button.style.transition = 'all 0.3s ease';
     });
 });
-

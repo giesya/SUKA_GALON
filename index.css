@@ -43,39 +43,39 @@ body {
 }
 
 .nav-menu {
-    display: flex;
-    gap: 2.5rem;
+    display: flex; 
+    gap: 2rem;
+    align-items: center;
 }
 
-.nav-link {
+.nav-items {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem; 
+}
+
+.nav-menu a {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 600;
     font-size: 1.1rem;
     transition: color 0.3s ease;
     position: relative;
+    padding: 0.5rem 1rem; 
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-menu a:hover,
+.nav-menu a.active {
     color: var(--primary-color);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+.nav-menu a.active {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
 
 .hamburger {
     display: none;
@@ -116,6 +116,7 @@ body {
 }
 
 .explore-btn {
+    display: inline-block;
     padding: 1rem 3rem;
     font-size: 1.2rem;
     font-weight: 700;
@@ -126,6 +127,8 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 57, 166, 0.3);
+    text-align: center;
+    text-decoration: none;
 }
 
 .explore-btn:hover {
@@ -158,22 +161,12 @@ body {
     transform: scale(1.05);
 }
 
-/* Animations */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .mascot-container {
         width: 350px;
         height: 450px;
@@ -200,18 +193,6 @@ body {
 
     .hamburger {
         display: flex;
-    }
-
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(8px, 8px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(8px, -8px);
     }
 
     .hero {
@@ -244,117 +225,4 @@ body {
         width: 250px;
         height: 350px;
     }
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #00235B 0%, #001845 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-.login-card {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.robot-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.login-header h1 {
-    margin: 0;
-    color: #333;
-    font-size: 24px;
-}
-
-.register-text {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #666;
-}
-
-.register-link {
-    color: blue;
-    text-decoration: none;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-.password-input {
-    position: relative;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    user-select: none;
-}
-
-.login-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #0040FF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.login-button:hover {
-    background-color: #0033CC;
-}
-
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-label[for="ingatsaya"] {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #666;
-}
 }
