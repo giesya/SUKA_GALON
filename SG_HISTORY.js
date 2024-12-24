@@ -5,5 +5,5 @@ function toggleProfileMenu() {
 }
 
 function toggleCart() {
-    alert("Cart is empty. Add items to your cart.");
+    alert("Keranjang masih kosong. Silakan pilih produk terlebih dahulu!");
 }

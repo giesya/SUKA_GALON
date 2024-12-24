@@ -5,17 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Ambil nilai input
-        const username = document.getElementById('username').value;
+        // Ambil nilai input dari form
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        // Validasi dasar
-        if (!username || !email || !password || !confirmPassword) {
-            alert('Semua field harus diisi!');
-            return;
-        }
 
         // Validasi email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,35 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Simpan data (contoh menggunakan localStorage)
-        const userData = {
-            username,
-            email,
-            password
-        };
-        
-        try {
-            localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Tampilkan modal success
+        // Contoh daftar email yang sudah terdaftar
+        const registeredEmails = ['test@example.com', 'user@example.com'];
+
+        if (registeredEmails.includes(email)) {
+            document.getElementById('emailError').style.display = 'block';
+        } else {
+            document.getElementById('emailError').style.display = 'none';
+            // Tampilkan modal sukses atau proses lainnya
             showSuccessModal();
-            
-            // Reset form
             form.reset();
-            
-        } catch (error) {
-            alert('Terjadi kesalahan saat menyimpan data!');
-            console.error('Error:', error);
         }
     });
 
     // Fungsi untuk menampilkan modal
     function showSuccessModal() {
         modal.style.display = 'flex';
-        
+
         // Redirect ke halaman login setelah 2 detik
         setTimeout(function() {
-            window.location.href = 'index.html';
+            window.location.href = 'SG_LOGIN.html';
         }, 2000);
     }
 
@@ -72,5 +56,5 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 });

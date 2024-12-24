@@ -9,7 +9,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Profile</h1>
+        <div class="header">
+            <img src="koko.png" alt="Mascot" class="mascot-image left">
+            <h1>Edit Profile</h1>
+            <img src="koko.png" alt="Mascot" class="mascot-image right">
+        </div>
         <form id="editProfileForm">
             <div class="form-group">
                 <label for="name">Username</label>
@@ -21,17 +25,27 @@
                 <input type="email" id="email" name="email" placeholder="Ketik email aktif" required>
             </div>
 
-            <button type="submit" class="submit-btn">Simpan</button>
+            <div class="form-group">
+                <label for="address">Alamat</label>
+                <textarea id="alamat" name="alamat" placeholder="Ketik alamat"></textarea>
+            </div>
+            
+
+            <div class="button-group">
+                <button type="button" class="cancel-btn">Batal</button>
+                <button type="submit" class="submit-btn">Simpan</button>
+            </div>
+            
         </form>
     </div>
-
 
     <div id="modal" class="modal">
         <div class="modal-content">
             <p id="modalMessage"></p>
-            <button id="closeModalBtn" class="close-btn">Close</button>
+            <button id="closeModalBtn" class="close-btn">Tutup</button>
         </div>
     </div>
+    
     <script src="SG_EDITPROF.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ function handleLogin(event) {
         localStorage.removeItem('userEmail');
     }
     
-    // Show success message
+    // Show success message and redirect after successful login
     showModal('Login berhasil!');
 }
 
@@ -48,8 +48,36 @@ function togglePassword() {
         toggleBtn.textContent = '👁️';
     } else {
         passwordInput.type = 'password';
-        toggleBtn.textContent = '👁️';
+        toggleBtn.textContent = '👁️‍🗨️';
     }
+}
+
+// Reset password form handling
+function handleResetPassword(event) {
+    event.preventDefault();
+    
+    const resetEmail = document.getElementById('resetEmail').value;
+
+    if (!resetEmail) {
+        alert('Mohon masukkan email!');
+        return;
+    }
+
+    // Logic for sending password reset link (to be handled server-side)
+    alert('Link reset password telah dikirim ke: ' + resetEmail);
+
+    // Close reset password form after submission
+    closeResetPasswordForm();
+}
+
+// Show reset password form modal
+function showResetPasswordForm() {
+    document.getElementById('resetPasswordModal').style.display = 'block';
+}
+
+// Close reset password form modal
+function closeResetPasswordForm() {
+    document.getElementById('resetPasswordModal').style.display = 'none';
 }
 
 // Load saved email if exists
@@ -67,11 +95,17 @@ window.onclick = function(event) {
     if (event.target === modal) {
         closeModal();
     }
+
+    const resetModal = document.getElementById('resetPasswordModal');
+    if (event.target === resetModal) {
+        closeResetPasswordForm();
+    }
 }
 
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeModal();
+        closeResetPasswordForm();
     }
 });

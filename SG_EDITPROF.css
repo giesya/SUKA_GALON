@@ -1,119 +1,118 @@
-/* Reset and Base Styles */
+/* Reset margin dan padding default */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
 }
 
-:root {
-    --primary-color: #0039a6;
-    --secondary-color: #e6f3ff;
-    --text-color: #333333;
-    --white: #ffffff;
-}
-
+/* Body dan container */
 body {
-    background-color: var(--secondary-color); /* Menggunakan warna sekunder */
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Container utama */
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Header dengan logo di kiri dan kanan */
+.header {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    margin-bottom: 30px;
+    position: relative;
 }
 
-.container {
-    background-color: var(--white); /* Menggunakan warna putih */
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
+.mascot-image {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+.mascot-image.left {
+    left: 0;
+}
+
+.mascot-image.right {
+    right: 0;
 }
 
 h1 {
-    font-size: 2rem;
-    color: var(--primary-color); /* Menggunakan warna utama */
-    margin-bottom: 1.5rem;
-    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 60px; /* Memberi ruang agar mascot tidak tumpang tindih dengan teks */
+}
+
+/* Styling untuk form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 label {
-    font-weight: 600;
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-color); /* Menggunakan warna teks */
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-input[type="text"],
-input[type="email"] {
+input, textarea {
     width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
+    padding: 12px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus {
-    border-color: var(--primary-color); /* Menggunakan warna utama */
-}
-
-button.submit-btn {
-    background-color: var(--primary-color); /* Menggunakan warna utama */
-    color: var(--white); /* Menggunakan warna putih */
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-}
-
-button.submit-btn:hover {
-    background-color: #005bb5; /* Hover effect */
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: var(--white);
-    padding: 2rem;
     border-radius: 8px;
-    text-align: center;
-    width: 300px;
+    margin-bottom: 10px;
 }
 
-#closeModalBtn {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
+textarea {
+    resize: vertical;
+}
+
+/* Tombol Batal dan Simpan */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 12px;
+    font-size: 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s;
+    width: 48%; /* Membuat tombol sama lebar */
 }
 
-#closeModalBtn:hover {
-    background-color: #005bb5; /* Hover effect */
+.cancel-btn {
+    background-color: #dc3545; /* Merah */
+    color: white;
+}
+
+.submit-btn {
+    background-color: #007bff; /* Biru */
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9; /* Efek hover agar tombol terlihat sedikit transparan saat dihover */
 }

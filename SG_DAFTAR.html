@@ -10,14 +10,12 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="koko.png" alt="Logo">
-            <h1>Daftar</h1>
+            <img src="koko.png" alt="Logo" class="mascot-image left">
+            <h1>Daftar Akun</h1>
+            <img src="koko.png" alt="Logo" class="mascot-image right">
         </div>
-        <form id="registrationForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
-            </div>
+        
+        <form id="registrationForm" class="registration-form">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
@@ -30,6 +28,7 @@
                 <label for="confirmPassword">Konfirmasi Password</label>
                 <input type="password" id="confirmPassword" required>
             </div>
+            <div id="emailError" class="error-message" style="display: none; color: red;">Email sudah terdaftar. Silakan gunakan email lain.</div>
             <button type="submit">Daftar</button>
             <div class="login-link">
                 Sudah punya akun? <a href="SG_LOGIN.html">Login</a>
