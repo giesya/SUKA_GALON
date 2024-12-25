@@ -1,5 +1,14 @@
-// script.js
 let cart = [];
+
+// Data produk termasuk stok
+const products = [
+    { name: 'Le Minerale 15L', price: 22000, image: 'le minerale.jpeg', stock: 10 },
+    { name: 'Le Minerale 5L', price: 15000, image: 'le minerale 5l.jpg', stock: 8 },
+    { name: 'Cleo - 19L', price: 34000, image: 'CLEO.jpeg', stock: 5 },
+    { name: 'Cleo 6L', price: 19000, image: 'cleo MINI.png', stock: 12 },
+    { name: 'Crystalline 6L', price: 14000, image: 'Cryst.jpg', stock: 15 },
+    { name: 'Crystalline 19L', price: 58000, image: 'cryst 19l.jpg', stock: 3 }
+];
 
 // Cart Functions
 function toggleCart() {
@@ -19,19 +28,30 @@ function toggleCart() {
 }
 
 function addToCart(name, price, image) {
-    const existingItem = cart.find(item => item.name === name);
+    const product = products.find(item => item.name === name);
     
+    // Validasi stok
+    const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
-        existingItem.quantity++;
+        if (existingItem.quantity < product.stock) {
+            existingItem.quantity++;
+            showNotification(`${name} ditambahkan ke keranjang`);
+        } else {
+            showNotification(`Stok ${name} tidak cukup!`, 'error');
+            return;
+        }
     } else {
-        cart.push({ name, price, image, quantity: 1 });
+        if (product.stock > 0) {
+            cart.push({ name, price, image, quantity: 1 });
+            showNotification(`${name} ditambahkan ke keranjang`);
+        } else {
+            showNotification(`Stok ${name} habis!`, 'error');
+            return;
+        }
     }
     
     updateCartCount();
     updateCartDisplay();
-    
-    // Show notification
-    showNotification(`${name} ditambahkan ke keranjang`);
 }
 
 function removeFromCart(index) {
@@ -46,10 +66,14 @@ function removeFromCart(index) {
 
 function updateQuantity(index, change) {
     const item = cart[index];
+    const product = products.find(p => p.name === item.name);
     const newQuantity = item.quantity + change;
     
-    if (newQuantity > 0) {
+    if (newQuantity > 0 && newQuantity <= product.stock) {
         item.quantity = newQuantity;
+    } else if (newQuantity > product.stock) {
+        showNotification(`Stok ${item.name} tidak cukup!`, 'error');
+        return;
     } else {
         removeFromCart(index);
     }
@@ -93,12 +117,25 @@ function checkout() {
         showNotification('Keranjang belanja Anda kosong!', 'error');
         return;
     }
-    
-    // Save cart to localStorage before redirecting
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Redirect to payment page
-    window.location.href = '/pembayaran';
+
+    const cartItems = cart.map(item => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price
+    }));
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const userName = "Nama Pemesan"; // Ambil nama pemesan sesuai dengan data pengguna jika ada
+    const message = `Halo, saya ingin memesan galon:\n\n${cartItems.map(item => `
+        Nama Pemesan: ${userName}
+        Email: ${userEmail}
+        Merk Galon: ${item.name}
+        Jumlah: ${item.quantity} x Rp${item.price.toLocaleString()}
+    `).join("\n")}
+    Total Harga: Rp${totalPrice.toLocaleString()}\n\nSilakan proses pesanan saya.`;
+
+    // Format WhatsApp link dengan pesan
+    const whatsappLink = `https://wa.me/6281585813432?text=${encodeURIComponent(message)}`;
+    window.open(whatsappLink, "_blank");
 }
 
 // Profile Dropdown Functions
@@ -120,7 +157,6 @@ window.onclick = function(event) {
 }
 
 // Notification System
-// script.js
 function showNotification(message, type = 'success') {
     // Create notification element
     const notification = document.createElement('div');

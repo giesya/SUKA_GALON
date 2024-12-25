@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="SG_DASHBOARD-ADMIN.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="koko.png" alt="SukaGalon Logo">
+                <h2>SukaGalon</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                <a href="#">Mengelola Riwayat Pemesanan</a></li>
+                <a href="#">Mengelola Informasi Produk</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="navbar">
+                <div class="profile-menu">
+                    <button onclick="toggleProfileMenu()" class="profile-btn">👤 Profile</button>
+                    <div class="dropdown" id="profileDropdown">
+                        <p id="userEmail" ></p>
+                        <a href="SG_LOGIN-ADMIN.html" id="logout" onclick="logout()">Keluar</a>
+                    </div>
+                </div>
+            </header>
+
+            <section class="welcome">
+                <h1>Selamat Datang, Admin!</h1>
+                <p>Pilih menu di sidebar untuk mulai mengelola SukaGalon.</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="SG_DASHBOARD-ADMIN.js"></script>
+</body>
+</html>
