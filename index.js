@@ -34,8 +34,6 @@ navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
-
-        // Smooth scroll
         e.preventDefault();
         const targetId = link.getAttribute('href');
         if (targetId && targetId !== '#') {
@@ -53,7 +51,6 @@ exploreBtn?.addEventListener('click', () => {
     }, 200);
 });
 
-// Mascot parallax effect
 if (mascot) {
     const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
@@ -65,7 +62,6 @@ if (mascot) {
     document.addEventListener('mousemove', debounce(handleMouseMove));
 }
 
-// Lazy load sections with IntersectionObserver
 const observerOptions = { threshold: 0.1 };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -79,7 +75,6 @@ document.querySelectorAll('.hero-content, .mascot-container').forEach(el => {
     observer.observe(el);
 });
 
-// Parallax clouds effect
 const handleScroll = () => {
     const scrolled = window.pageYOffset;
     clouds.forEach((cloud, index) => {
@@ -92,7 +87,6 @@ if (clouds.length) {
     window.addEventListener('scroll', debounce(handleScroll));
 }
 
-// Preloader effect
 window.addEventListener('load', () => {
     const loader = document.createElement('div');
     loader.className = 'preloader';
