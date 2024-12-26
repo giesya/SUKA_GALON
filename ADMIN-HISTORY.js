@@ -198,4 +198,4 @@ function toggleProfileMenu() {
 
 function logout() {
     window.location.href = 'SG_LOGIN-ADMIN.html';
-}
+} 
