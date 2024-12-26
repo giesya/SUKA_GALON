@@ -1,27 +1,54 @@
+// Simulasi data pengguna yang terdaftar di database
+const usersDatabase = [
+    { email: "admin@sukagalon.com", password: "admin123" },
+    { email: "user1@example.com", password: "userpass1" }
+];
+
+// Fungsi untuk menangani login
 function handleLogin(event) {
     event.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
     const remember = document.getElementById('remember').checked;
-    
-    // Simple validation
+
+    // Validasi input
     if (!email || !password) {
         showModal('Mohon isi semua field!');
         return;
     }
-    
-    // Save to localStorage if remember is checked
+
+    // Validasi pengguna berdasarkan database
+    const user = usersDatabase.find(user => user.email === email);
+    if (!user) {
+        showModal('Email tidak terdaftar!');
+        return;
+    }
+
+    if (user.password !== password) {
+        showModal('Password salah!');
+        return;
+    }
+
+    // Jika berhasil login, simpan email jika opsi 'remember' dipilih
     if (remember) {
         localStorage.setItem('userEmail', email);
     } else {
         localStorage.removeItem('userEmail');
     }
-    
-    // Show success message and redirect after successful login
+
+    // Tampilkan pesan sukses dan redirect berdasarkan peran
     showModal('Login berhasil!');
+    setTimeout(() => {
+        if (email === "admin@sukagalon.com") {
+            window.location.href = '/SG_DASHBOARD-ADMIN.html';
+        } else {
+            window.location.href = '/belanja'; // Redirect untuk pengguna biasa
+        }
+    }, 1500);
 }
 
+// Fungsi untuk menampilkan modal pesan
 function showModal(message) {
     const modal = document.getElementById('alertModal');
     const modalMessage = document.getElementById('modalMessage');
@@ -29,20 +56,17 @@ function showModal(message) {
     modal.style.display = 'flex';
 }
 
+// Fungsi untuk menutup modal pesan
 function closeModal() {
     const modal = document.getElementById('alertModal');
     modal.style.display = 'none';
-    
-    // Redirect to belanja page after successful login
-    if (document.getElementById('modalMessage').textContent === 'Login berhasil!') {
-        window.location.href = '/belanja';
-    }
 }
 
+// Toggle visibilitas password
 function togglePassword() {
     const passwordInput = document.getElementById('password');
     const toggleBtn = document.querySelector('.toggle-password');
-    
+
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         toggleBtn.textContent = '👁️';
@@ -52,35 +76,7 @@ function togglePassword() {
     }
 }
 
-// Reset password form handling
-function handleResetPassword(event) {
-    event.preventDefault();
-    
-    const resetEmail = document.getElementById('resetEmail').value;
-
-    if (!resetEmail) {
-        alert('Mohon masukkan email!');
-        return;
-    }
-
-    // Logic for sending password reset link (to be handled server-side)
-    alert('Link reset password telah dikirim ke: ' + resetEmail);
-
-    // Close reset password form after submission
-    closeResetPasswordForm();
-}
-
-// Show reset password form modal
-function showResetPasswordForm() {
-    document.getElementById('resetPasswordModal').style.display = 'block';
-}
-
-// Close reset password form modal
-function closeResetPasswordForm() {
-    document.getElementById('resetPasswordModal').style.display = 'none';
-}
-
-// Load saved email if exists
+// Menyimpan email yang diingat
 document.addEventListener('DOMContentLoaded', () => {
     const savedEmail = localStorage.getItem('userEmail');
     if (savedEmail) {
@@ -89,23 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Close modal when clicking outside
+// Menutup modal jika mengklik di luar modal
 window.onclick = function(event) {
     const modal = document.getElementById('alertModal');
     if (event.target === modal) {
         closeModal();
     }
+};
 
-    const resetModal = document.getElementById('resetPasswordModal');
-    if (event.target === resetModal) {
-        closeResetPasswordForm();
-    }
-}
-
-// Close modal with Escape key
+// Menutup modal dengan tombol Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeModal();
-        closeResetPasswordForm();
     }
 });
