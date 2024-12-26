@@ -197,5 +197,5 @@ function toggleProfileMenu() {
 }
 
 function logout() {
-    window.location.href = 'SG_LOGIN-ADMIN.html';
+    window.location.href = 'ADMIN-LOGIN.html';
 } 
