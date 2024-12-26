@@ -10,9 +10,6 @@ function toggleProfileMenu() {
 }
 
 function logout() {
-    // Placeholder for logout logic
-    // For example, you can clear session or redirect to a login page
     alert("Logging out...");
-    // Redirecting to a login page for example
     window.location.href = "login.html"; // Replace with your actual logout URL
 }
