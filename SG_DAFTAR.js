@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registrationForm');
     const modal = document.getElementById('successModal');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Ambil nilai input dari form
@@ -28,16 +28,39 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Contoh daftar email yang sudah terdaftar
+        // Contoh daftar email yang sudah terdaftar (hapus ini jika menggunakan database)
         const registeredEmails = ['test@example.com', 'user@example.com'];
 
         if (registeredEmails.includes(email)) {
             document.getElementById('emailError').style.display = 'block';
         } else {
             document.getElementById('emailError').style.display = 'none';
-            // Tampilkan modal sukses atau proses lainnya
-            showSuccessModal();
-            form.reset();
+
+            try {
+                // Kirim data ke server
+                const response = await fetch('YOUR_SERVER_ENDPOINT_HERE', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                if (response.ok) {
+                    // Tampilkan modal sukses jika pendaftaran berhasil
+                    showSuccessModal();
+                    form.reset();
+                } else {
+                    const error = await response.json();
+                    alert('Gagal mendaftarkan user: ' + error.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menghubungi server.');
+            }
         }
     });
 

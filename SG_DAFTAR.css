@@ -1,4 +1,3 @@
-/* Reset margin dan padding default */
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +16,6 @@ body {
     overflow-y: auto;
 }
 
-/* Container utama */
 .container {
     background: white;
     padding: 40px;
