@@ -1,178 +1,162 @@
-:root {
-    --primary-color: #0039a6;
-    --secondary-color: #e6f3ff;
-    --text-color: #333333;
-    --white: #ffffff;
-}
-
+/* Base Styling */
 body {
-    margin: 0;
     font-family: 'Nunito', sans-serif;
-    background-color: #f4f8fc;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #e3f2fd, #ffffff);
     color: #333;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 0;
-    position: relative;
-    z-index: 100;
+    padding: 1rem 2rem;
+    background-color: #007bff;  /* Changed to #007bff */
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-brand {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-.nav-menu {
-    display: flex; 
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-items {
+.nav-menu ul {
     display: flex;
     list-style: none;
-    margin: 0;
     padding: 0;
-    gap: 2rem; 
+    margin: 0;
 }
 
-.nav-menu a {
+.nav-items li {
+    margin: 0 1rem;
+}
+
+.nav-items a {
+    color: #fff;
     text-decoration: none;
-    color: var(--text-color);
     font-weight: 600;
-    font-size: 1.1rem;
     transition: color 0.3s ease;
-    position: relative;
-    padding: 0.5rem 1rem; 
 }
 
-.nav-menu a:hover,
-.nav-menu a.active {
-    color: var(--primary-color);
+.nav-items a:hover {
+    color: #b3e5fc; /* Adjusted hover color */
 }
-
-.nav-menu a.active {
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 5px;
-}
-
 
 .hamburger {
     display: none;
     flex-direction: column;
-    gap: 6px;
     cursor: pointer;
 }
 
 .hamburger span {
-    width: 30px;
+    background: #fff;
     height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 3px;
-    transition: all 0.3s ease;
+    width: 25px;
+    margin: 3px 0;
 }
 
-/* Hero Section */
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: calc(100vh - 100px);
-    padding: 2rem 0;
-    position: relative;
-}
-
-.hero-content {
-    flex: 1;
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--primary-color);
-    line-height: 1.2;
-    margin-bottom: 2rem;
-}
-
-.explore-btn {
-    display: inline-block;
-    padding: 1rem 3rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--white);
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 57, 166, 0.3);
-    text-align: center;
-    text-decoration: none;
-}
-
-.explore-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 57, 166, 0.4);
-}
-
+/* About Section */
 .about-section {
     text-align: center;
-    padding: 50px 20px;
+    padding: 3rem 1.5rem;
+    background: #ffffff;
 }
 
 .about-section h1 {
     font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #0066cc;
+    margin-bottom: 1rem;
+    color: #007bff;  /* Changed to #007bff */
 }
 
 .about-section p {
     font-size: 1.1rem;
-    margin-bottom: 40px;
+    line-height: 1.8;
+    margin: 1rem 0;
 }
 
-.team-photo {
-    margin: 20px auto;
-    text-align: center;
+.about-section h2 {
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: #007bff;  /* Changed to #007bff */
 }
 
+/* Team Section */
 .team-photo img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
-}
-
-.team-info {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
+    width: 250px;  /* Increased size */
+    height: 250px; /* Increased size */
+    border-radius: 10px;  /* Added rounded corners */
+    margin: 1rem auto;
+    display: block;
+    border: 4px solid #007bff;  /* Changed border color to #007bff */
 }
 
 .team-info ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .team-info li {
-    margin-bottom: 15px;
-    font-size: 1rem;
-    color: #333;
+    background: #e0f2f1;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 1rem);
+    max-width: 300px;
+    transition: background 0.3s ease; /* Smooth transition for background */
 }
 
-.team-info strong {
-    color: #0066cc;
+.team-info li:hover {
+    background: #b3e5fc; /* Hover background color */
+}
+
+.team-info li strong {
+    color: #007bff;  /* Changed to #007bff */
+}
+
+/* Footer */
+.footer {
+    background-color: #007bff;  /* Changed to #007bff */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu ul {
+        display: none;
+        flex-direction: column;
+        background-color: #007bff;  /* Changed to #007bff */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .about-section h1 {
+        font-size: 2rem;
+    }
+
+    .team-info li {
+        width: 100%;
+    }
 }
