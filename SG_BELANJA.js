@@ -114,27 +114,30 @@ function updateCartDisplay() {
 
 function checkout() {
     if (cart.length === 0) {
-        showNotification('Keranjang belanja Anda kosong!', 'error');
+        alert('Keranjang belanja Anda kosong!');
         return;
     }
 
-    const cartItems = cart.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price
-    }));
-    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const userName = "Nama Pemesan"; // Ambil nama pemesan sesuai dengan data pengguna jika ada
-    const message = `Halo, saya ingin memesan galon:\n\n${cartItems.map(item => `
-        Nama Pemesan: ${userName}
-        Email: ${userEmail}
-        Merk Galon: ${item.name}
-        Jumlah: ${item.quantity} x Rp${item.price.toLocaleString()}
-    `).join("\n")}
-    Total Harga: Rp${totalPrice.toLocaleString()}\n\nSilakan proses pesanan saya.`;
+    // Data pemesan
+    const userName = "Nama Pemesan"; // Ganti dengan nama yang relevan jika tersedia
+    const phoneNumber = "+6281585813432"; // Nomor WhatsApp tujuan
 
-    // Format WhatsApp link dengan pesan
-    const whatsappLink = `https://wa.me/6281585813432?text=${encodeURIComponent(message)}`;
+    // Membentuk pesan berdasarkan keranjang
+    let message = `Halo, saya ingin memesan galon:\nNama: \nAlamat Pengiriman:\n\n`;
+    let totalPrice = 0;
+
+    cart.forEach((item) => {
+        message += `${item.name} - ${item.quantity} x Rp${item.price.toLocaleString()} = Rp${(item.price * item.quantity).toLocaleString()}\n`;
+        totalPrice += item.price * item.quantity;
+    });
+
+    message += `\nTotal Harga: Rp${totalPrice.toLocaleString()}\n\nSilakan proses pesanan saya.`;
+
+    // Encode pesan dan buat link WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    // Redirect ke WhatsApp
     window.open(whatsappLink, "_blank");
 }
 
