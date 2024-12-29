@@ -5,11 +5,12 @@ const usersDatabase = [
 ];
 
 // Fungsi untuk menangani login
+
 function handleLogin(event) {
     event.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     const remember = document.getElementById('remember').checked;
 
     // Validasi input
@@ -17,7 +18,7 @@ function handleLogin(event) {
         showModal('Mohon isi semua field!');
         return;
     }
-
+    
     // Validasi pengguna berdasarkan database
     const user = usersDatabase.find(user => user.email === email);
     if (!user) {
@@ -41,9 +42,9 @@ function handleLogin(event) {
     showModal('Login berhasil!');
     setTimeout(() => {
         if (email === "admin@sukagalon.com") {
-            window.location.href = '/SG_DASHBOARD-ADMIN.html';
+            window.location.href = 'SG_DASHBOARD-ADMIN.html';
         } else {
-            window.location.href = '/belanja'; // Redirect untuk pengguna biasa
+            window.location.href = '/sukagalon/src/main/java/SG_BELANJA.html'; // Redirect untuk pengguna biasa
         }
     }, 1500);
 }
@@ -99,3 +100,33 @@ document.addEventListener('keydown', (e) => {
         closeModal();
     }
 });
+/*
+async function handleLogin(event) {
+    event.preventDefault(); // Mencegah reload halaman
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const response = await fetch("http://localhost:8080/api/users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+            const message = await response.text();
+            alert(message); // Menampilkan pesan sukses
+            window.location.href = "SG_BELANJA.html"; // Redirect ke halaman belanja
+        } else {
+            const errorMessage = await response.text();
+            alert(errorMessage); // Menampilkan pesan gagal
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan saat login.");
+    }
+}
+*/
